@@ -55,13 +55,14 @@
 //   }
 // }
 
-import 'package:flutter/material.dart'; // CRITICAL: Added required import
-import 'onboarding_screen.dart'; // Navigate to Onboarding after splash
+import 'package:flutter/material.dart';
+import 'onboarding_screen.dart';
 import 'dart:async';
 
 // --- BRAND THEME COLORS ---
-const Color kPrimaryGold = Color(0xFFEAB503); 
-const Color kDeepBlue = Color(0xFF1A1A1A); 
+const Color kDarkGold = Color(0xFFAC7D0C); // Dark gold
+const Color kCream = Color(0xFFF7F7E6);    // Cream color
+const Color kDeepBlue = Color(0xFF1A1A1A); // Deep blue text
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -74,13 +75,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Start a timer to navigate away from the splash screen after 3 seconds
+    // Navigate to OnboardingScreen after 10 seconds
     Timer(const Duration(seconds: 10), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          // Navigating to the OnboardingScreen
-          // FIX APPLIED: Removed 'const' before OnboardingScreen()
-          builder: (context) => const OnboardingScreen(), 
+          builder: (context) => const OnboardingScreen(),
         ),
       );
     });
@@ -88,47 +87,38 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // The splash screen design uses a background gradient (from light gold to deep blue)
     return Scaffold(
       body: Container(
-        // Apply the gradient background
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              // Light Gold/Cream color at the top (F7F7E6 is a clean, light color)
-              Color(0xFFF7F7E6), 
-              // Deep Blue at the bottom (Used a dark blue close to your text color)
-              Color(0xFF004C99), 
+              kDarkGold, // Dark gold at the top
+              kCream,    // Cream at the bottom
             ],
-            stops: [0.3, 1.0], 
+            stops: [0.0, 1.0],
           ),
         ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // --- LOGO (Placeholder for your logo image) ---
-              // IMPORTANT: Update this path if your logo is elsewhere!
-              // Image.asset(
-              //   'images/The_app_Logo.jpeg',
-              //   height: 120, 
-              // ),
+              // --- Logo ---
               Image(
-              image: AssetImage('images/The_app_Logo.png'),
-              height: 500,
-              width: 300,
-            ),
+                image: AssetImage('images/The_app_Logo.png'),
+                height: 500,
+                width: 300,
+              ),
               const SizedBox(height: 15),
 
-              // --- Tagline: Unlock Your Potential ---
-              const Text( 
+              // --- Tagline ---
+              const Text(
                 'Unlock Your Potential',
-                style: TextStyle( 
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: kDeepBlue, // Deep blue text color
+                  color: kDeepBlue,
                 ),
               ),
             ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart'; // ✅ Import for back navigation
 
-const Color kPrimaryGold = Color(0xFFEAB503);
+const Color kPrimaryGold = Color(0xFFAC7D0C);
 const Color kDeepBlue = Color(0xFF1A1A1A);
-const Color kSecondaryBlue = Color(0xFF004C99);
+const Color kWhite = Color(0xFFFFFFFF);
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
@@ -45,25 +45,25 @@ class CreateAccountScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          Container(
-            width: goldColumnWidth,
-            height: double.infinity,
-            color: kPrimaryGold,
-            child: const Center(
-              child: RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  'Youth K.E.Y Series',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   width: goldColumnWidth,
+          //   height: double.infinity,
+          //   color: kPrimaryGold,
+          //   child: const Center(
+          //     child: RotatedBox(
+          //       quarterTurns: 3,
+          //       child: Text(
+          //         'Youth K.E.Y Series',
+          //         style: TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 14,
+          //           fontWeight: FontWeight.bold,
+          //           letterSpacing: 2,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           Expanded(
             child: SingleChildScrollView(
@@ -71,14 +71,15 @@ class CreateAccountScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 40),
+                  // const SizedBox(height: 40),
                   Center(
                     child: Image.asset(
-                      'images/The_app_Logo.jpeg',
-                      height: 80,
+                      'images/The_app_Logo.png',
+                      height: 200,
+                      width: 200,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  // const SizedBox(height: 30),
 
                   const Text(
                     'Create Your Account',
@@ -160,7 +161,7 @@ class CreateAccountScreen extends StatelessWidget {
                         child: const Text(
                           'Login',
                           style: TextStyle(
-                            color: kSecondaryBlue,
+                            color: kWhite,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

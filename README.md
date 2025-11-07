@@ -16,9 +16,5 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 # Screenshot Images 
-![alt text](spashScreen.png)
-![alt text](Onbaord 1.png)
-![alt text](Onboard 2.png)
-![alt text](Onboard 3.png)
-![alt text](login.png)
-![alt text](register.png)
+
+![alt text](SignUp.PNG) ![alt text](Splash.PNG) ![alt text](Login.PNG) ![alt text](on1.PNG) ![alt text](on2.PNG) ![alt text](on3.PNG)

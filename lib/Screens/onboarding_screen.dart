@@ -117,11 +117,12 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'login_screen.dart'; // Navigate to login after onboarding
 
-// --- BRAND COLORS ---
-const Color kPrimaryGold = Color(0xFFEAB503);
+import 'package:flutter/material.dart';
+import 'login_screen.dart'; // Make sure to import LoginScreen
+
+// --- Brand Colors ---
+const Color kPrimaryGold = Color(0xFFAC7D0C);
 const Color kDeepBlue = Color(0xFF1A1A1A);
 const Color kSecondaryBlue = Color(0xFF004C99);
 
@@ -196,10 +197,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // --- IMAGE ---
+                        // --- IMAGE: Increased width and height ---
                         Image.asset(
                           data["image"]!,
-                          height: 250,
+                          height: 200, // Increased from 250
+                          width: 200,  // Added width to make it larger
+                          fit: BoxFit.contain,
                         ),
                         const SizedBox(height: 40),
                         // --- TITLE ---
@@ -270,7 +273,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: kDeepBlue,
+                      color: Colors.white, // Button text is white
                     ),
                   ),
                 ),
