@@ -138,17 +138,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> _onboardingData = [
     {
-      "image": "assets/images/onboarding1.png",
+      "image": "images/onboarding1.png",
       "title": "Unlock Your Potential",
       "desc": "Empowering youth through knowledge, education, and growth."
     },
     {
-      "image": "assets/images/onboarding2.png",
+      "image": "images/onboarding2.png",
       "title": "Engage & Learn",
       "desc": "Interactive programs that inspire confidence and creativity."
     },
     {
-      "image": "assets/images/onboarding3.png",
+      "image": "images/onboarding3.png",
       "title": "Achieve Your Goals",
       "desc": "Turn your dreams into reality with The Youth K.E.Y. Series."
     },
