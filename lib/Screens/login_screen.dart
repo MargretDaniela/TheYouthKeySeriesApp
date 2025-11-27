@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'create_account_screen.dart'; // ✅ Import to navigate to Sign Up screen
 
 // --- Brand Colors ---
 const Color kPrimaryGold = Color(0xFFAC7D0C);
@@ -15,16 +14,32 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  // --- Reusable TextField Widget ---
+  void _login() {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
   Widget _buildTextField({
     required String labelText,
     required IconData icon,
+    required TextEditingController controller,
     bool obscureText = false,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
           labelText: labelText,
@@ -49,144 +64,79 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 0),
-
-              // --- App Logo (Increased Size) ---
-              Center(
-                child: Image.asset(
-                  'images/The_app_Logo.png',
-                  height: 220,
-                  width: 220,  
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(height: 0),
-
-              // --- Welcome Text ---
-              const Text(
-                'Welcome Back',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900,
-                  color: kDeepBlue,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Login to continue your journey.',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-              const SizedBox(height: 40),
-
-              // --- TextFields ---
-              _buildTextField(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 80),
+            Image.asset('images/The_app_Logo.png', height: 150),
+            const SizedBox(height: 30),
+            const Text(
+              'Welcome Back',
+              style: TextStyle(
+                  fontSize: 28, fontWeight: FontWeight.bold, color: kDeepBlue),
+            ),
+            const SizedBox(height: 20),
+            _buildTextField(
                 labelText: 'Email Address',
                 icon: Icons.email_outlined,
-              ),
-              _buildTextField(
+                controller: _emailController),
+            _buildTextField(
                 labelText: 'Password',
                 icon: Icons.lock_outline,
-                obscureText: true,
-              ),
-              const SizedBox(height: 10),
-
-              // --- Remember Me & Forgot Password ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _rememberMe = value ?? false;
-                          });
-                        },
-                        activeColor: kPrimaryGold,
-                      ),
-                      const Text('Remember Me', style: TextStyle(color: kDeepBlue)),
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      print('Forgot Password?');
-                    },
-                    child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: kPrimaryGold,
-                        fontWeight: FontWeight.bold,
-                      ),
+                controller: _passwordController,
+                obscureText: true),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _rememberMe,
+                      onChanged: (v) =>
+                          setState(() => _rememberMe = v ?? false),
+                      activeColor: kPrimaryGold,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-
-              // --- Login Button ---
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  onPressed: () {
-                    print('Login pressed');
-                  },
-                  style: ElevatedButton.styleFrom(
+                    const Text('Remember Me'),
+                  ],
+                ),
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/forgot-password'),
+                  child: const Text('Forgot Password?',
+                      style: TextStyle(color: kPrimaryGold)),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: _login,
+                style: ElevatedButton.styleFrom(
                     backgroundColor: kPrimaryGold,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 5,
-                  ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white, // ✅ White text
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                        borderRadius: BorderRadius.circular(12))),
+                child: const Text('Login',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+              ),
+            ),
+            const SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Don't have an account?"),
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, '/create-account'),
+                  child: const Text('Sign Up',
+                      style: TextStyle(color: kSecondaryBlue)),
                 ),
-              ),
-              const SizedBox(height: 40),
-
-              // --- Sign Up Navigation ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account?",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CreateAccountScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: kSecondaryBlue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
