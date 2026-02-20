@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // --- App Colors ---
 const Color kPrimaryGold = Color(0xFFAC7D0C);
-const Color kDeepBlue = Color(0xFF004C99);
+const Color kDeepBlue = Color(0xFF032B53);
+
 
 class RegistrationSuccessScreen extends StatelessWidget {
   const RegistrationSuccessScreen({super.key});
@@ -74,9 +75,10 @@ class RegistrationSuccessScreen extends StatelessWidget {
                       height: 55,
                       child: ElevatedButton(
                         onPressed: () {
+                          // Navigate to login after registration success
                           Navigator.pushNamedAndRemoveUntil(
                             context,
-                            '/dashboard',
+                            '/login',
                             (route) => false,
                           );
                         },
@@ -88,7 +90,7 @@ class RegistrationSuccessScreen extends StatelessWidget {
                           elevation: 5,
                         ),
                         child: const Text(
-                          'Go to Dashboard',
+                          'LOGIN',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,

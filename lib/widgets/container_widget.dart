@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+const Color kDeepBlue = Color(0xFF0D3B66);
 class CustomContainerWidget extends StatelessWidget {
   const CustomContainerWidget({super.key});
 
@@ -14,13 +14,13 @@ class CustomContainerWidget extends StatelessWidget {
           width: 250,                        // slightly wider
           height: 120,                       // slightly taller
           padding: const EdgeInsets.all(20), // inner padding
-          margin: const EdgeInsets.all(12),  // outer margin
+          margin: const EdgeInsets.all(8),  // outer margin
           decoration: BoxDecoration(
             color: Colors.deepOrangeAccent,  // new background color
             borderRadius: BorderRadius.circular(16), // rounded corners
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
+                color: kDeepBlue,
                 blurRadius: 6,
                 offset: Offset(3, 3),
               ),

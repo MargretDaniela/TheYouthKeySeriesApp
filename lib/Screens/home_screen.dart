@@ -1,252 +1,490 @@
+
+// import 'package:flutter/material.dart';
+// import 'package:marquee_widget/marquee_widget.dart';
+
+// import '../widgets/bottom_nav.dart';
+// import '../widgets/course_card.dart';
+// import 'mastering_public_speaking.dart';
+
+// const Color kWhite = Colors.white;
+// const Color kDeepBlue = Color(0xFF0D3B66);
+// const Color kPrimaryGold = Color(0xFFB08D2E);
+// const Color kLightGrayBg = Color(0xFFF2F2F2);
+
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({super.key});
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> {
+//   bool isSearching = false;
+//   final TextEditingController _searchController = TextEditingController();
+//   String searchQuery = '';
+
+//   final List<Map<String, dynamic>> popularCategories = const [
+//     {'title': 'Leadership and influence', 'icon': Icons.star_rounded},
+//     {'title': 'Financial Literacy', 'icon': Icons.account_balance_wallet_rounded},
+//     {'title': 'Entrepreneurship and Career', 'icon': Icons.laptop_mac_rounded},
+//     {'title': 'Communication', 'icon': Icons.record_voice_over_rounded},
+//     {'title': 'Public Speaking', 'icon': Icons.mic_rounded},
+//     {'title': 'Entrepreneurship', 'icon': Icons.trending_up_rounded},
+//     {'title': 'Critical Thinking', 'icon': Icons.psychology_rounded},
+//     {'title': 'Time Management', 'icon': Icons.access_time_rounded},
+//   ];
+
+//   final List<Map<String, dynamic>> trendingCourses = const [
+//     {
+//       'title': 'Mastering Public Speaking',
+//       'instructor': 'Youth K.E.Y',
+//       'image': 'images/public_speaking.jpg',
+//       'price': 'Free',
+//       'rating': 4.7,
+//       'reviews': 1200,
+//       'bestseller': true,
+//     },
+//     {
+//       'title': 'Creative Problem Solving',
+//       'instructor': 'Youth K.E.Y',
+//       'image': 'images/public_speaking.jpg',
+//       'price': 'Free',
+//       'rating': 4.5,
+//       'reviews': 850,
+//       'bestseller': false,
+//     },
+//     {
+//       'title': 'Time Management Mastery',
+//       'instructor': 'Youth K.E.Y',
+//       'image': 'images/public_speaking.jpg',
+//       'price': 'Free',
+//       'rating': 4.6,
+//       'reviews': 500,
+//       'bestseller': false,
+//     },
+//   ];
+
+//   final List<Map<String, dynamic>> personalDevelopmentCourses = const [
+//     {
+//       'title': 'Building Self-Confidence',
+//       'instructor': 'Youth K.E.Y',
+//       'image': 'images/public_speaking.jpg',
+//       'price': 'Free',
+//       'rating': 4.6,
+//       'reviews': 3400,
+//       'bestseller': false,
+//     },
+//     {
+//       'title': 'Emotional Intelligence',
+//       'instructor': 'Youth K.E.Y',
+//       'image': 'images/public_speaking.jpg',
+//       'price': 'Free',
+//       'rating': 4.8,
+//       'reviews': 2700,
+//       'bestseller': true,
+//     },
+//   ];
+
+//   List<Map<String, dynamic>> filterCourses(List<Map<String, dynamic>> courses) {
+//     if (searchQuery.isEmpty) return courses;
+//     return courses
+//         .where((c) =>
+//             c['title'].toLowerCase().contains(searchQuery.toLowerCase()))
+//         .toList();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final filteredTrending = filterCourses(trendingCourses);
+//     final filteredPersonal = filterCourses(personalDevelopmentCourses);
+
+//     return Scaffold(
+//       backgroundColor: kLightGrayBg,
+//       appBar: AppBar(
+//         backgroundColor: kWhite,
+//         elevation: 0,
+//         title: !isSearching
+//             ? const Text(
+//                 'YOUTH K.E.Y SERIES',
+//                 style: TextStyle(
+//                   color: kDeepBlue,
+//                   fontWeight: FontWeight.w900,
+//                   fontSize: 22,
+//                 ),
+//               )
+//             : TextField(
+//                 controller: _searchController,
+//                 autofocus: true,
+//                 decoration: InputDecoration(
+//                   hintText: 'Search courses...',
+//                   hintStyle: const TextStyle(color: Colors.grey),
+//                   border: InputBorder.none,
+//                 ),
+//                 style: const TextStyle(color: kDeepBlue, fontSize: 18),
+//                 onChanged: (value) {
+//                   setState(() {
+//                     searchQuery = value;
+//                   });
+//                 },
+//               ),
+//         actions: [
+//           IconButton(
+//             icon: Icon(isSearching ? Icons.close : Icons.search,
+//                 color: kDeepBlue),
+//             onPressed: () {
+//               setState(() {
+//                 if (isSearching) {
+//                   searchQuery = '';
+//                   _searchController.clear();
+//                 }
+//                 isSearching = !isSearching;
+//               });
+//             },
+//           ),
+//         ],
+//       ),
+//       body: SingleChildScrollView(
+//         padding: const EdgeInsets.symmetric(horizontal: 24),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             if (!isSearching) ...[
+//               const SizedBox(height: 16),
+//               const Text(
+//                 'Discover Your Path',
+//                 style: TextStyle(
+//                   fontSize: 32,
+//                   fontWeight: FontWeight.w900,
+//                   color: kDeepBlue,
+//                 ),
+//               ),
+//               const SizedBox(height: 24),
+//               const Text(
+//                 'Popular Categories',
+//                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+//               ),
+//               const SizedBox(height: 12),
+//               _buildMarqueeCategories(),
+//               const SizedBox(height: 28),
+//             ],
+//             const Text(
+//               'New and Trending Lessons',
+//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+//             ),
+//             const SizedBox(height: 12),
+//             filteredTrending.isEmpty
+//                 ? const Center(
+//                     child: Padding(
+//                       padding: EdgeInsets.symmetric(vertical: 32),
+//                       child: Text(
+//                         'No results found',
+//                         style: TextStyle(
+//                             color: Colors.grey,
+//                             fontSize: 16,
+//                             fontWeight: FontWeight.w600),
+//                       ),
+//                     ),
+//                   )
+//                 : _buildHorizontalCourses(filteredTrending, searchQuery),
+//             const SizedBox(height: 28),
+//             const Text(
+//               'Personal Development Courses',
+//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+//             ),
+//             const SizedBox(height: 12),
+//             filteredPersonal.isEmpty
+//                 ? const Center(
+//                     child: Padding(
+//                       padding: EdgeInsets.symmetric(vertical: 32),
+//                       child: Text(
+//                         'No results found',
+//                         style: TextStyle(
+//                             color: Colors.grey,
+//                             fontSize: 16,
+//                             fontWeight: FontWeight.w600),
+//                       ),
+//                     ),
+//                   )
+//                 : _buildHorizontalCourses(filteredPersonal, searchQuery),
+//             const SizedBox(height: 32),
+//           ],
+//         ),
+//       ),
+//       bottomNavigationBar: buildBottomNavigationBar(context, 0),
+//     );
+//   }
+
+//   Widget _buildMarqueeCategories() {
+//     return SizedBox(
+//       height: 48,
+//       child: Marquee(
+//         direction: Axis.horizontal,
+//         animationDuration: const Duration(seconds: 20),
+//         child: Row(
+//           children: popularCategories
+//               .map((cat) => _buildCategoryChip(cat['title'], cat['icon']))
+//               .toList(),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildCategoryChip(String title, IconData icon) {
+//     return Container(
+//       margin: const EdgeInsets.only(right: 12),
+//       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//       decoration: BoxDecoration(
+//         color: kWhite,
+//         borderRadius: BorderRadius.circular(100),
+//       ),
+//       child: Row(
+//         children: [
+//           CircleAvatar(
+//             radius: 12,
+//             backgroundColor: kPrimaryGold,
+//             child: Icon(icon, size: 14, color: kWhite),
+//           ),
+//           const SizedBox(width: 6),
+//           Text(title, style: const TextStyle(fontSize: 12)),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildHorizontalCourses(
+//       List<Map<String, dynamic>> courses, String highlight) {
+//     return SizedBox(
+//       height: 330,
+//       child: ListView.separated(
+//         scrollDirection: Axis.horizontal,
+//         itemCount: courses.length,
+//         separatorBuilder: (_, __) => const SizedBox(width: 16),
+//         itemBuilder: (context, index) {
+//           final c = courses[index];
+//           return GestureDetector(
+//             onTap: () {
+//               if (c['title'] == 'Mastering Public Speaking') {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (_) => const MasteringPublicSpeakingScreen(),
+//                   ),
+//                 );
+//               }
+//             },
+//             child: CourseCard(
+//               title: c['title'],
+//               instructor: c['instructor'],
+//               imagePath: c['image'],
+//               price: c['price'],
+//               rating: c['rating'],
+//               reviews: c['reviews'],
+//               isBestseller: c['bestseller'],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
+import '../widgets/bottom_nav.dart';
+import 'view_all_screen.dart';
 
-// --- App Colors ---
-const Color kPrimaryGold = Color(0xFFAC7D0C);
-const Color kDeepBlue = Color(0xFF032B53);
-const Color kLightGrayBg = Color(0xFFF0F0F0);
-const Color kAppBarBg = Color(0xFFF8F8F8);
-const Color kDarkNavy = Color(0xFF0D253F);
+const Color kNavy = Color(0xFF0D3B66);
+const Color kGold = Color(0xFFF2C94C);
 const Color kWhite = Colors.white;
-const Color kTextDark = Color(0xFF1A1A1A);
+const Color kLightGrayBg = Color(0xFFF5F5F5);
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  final List<Map<String, dynamic>> popularCategories = const [
-    {
-      'title': 'Leadership Skills',
-      'icon': Icons.star,
-    },
-    {
-      'title': 'Financial Literacy',
-      'icon': Icons.account_balance_wallet,
-    },
-    {
-      'title': 'Digital Entrepreneurship',
-      'icon': Icons.laptop_mac,
-    },
-    {
-      'title': 'Communication',
-      'icon': Icons.record_voice_over,
-    },
-  ];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-  final List<Map<String, dynamic>> trendingLessons = const [
-    {'title': 'Mastering Public Speaking', 'icon': Icons.mic},
-    {'title': 'Creative Problem-Solving', 'icon': Icons.lightbulb_outline},
-    {'title': 'Effective Team Collaboration', 'icon': Icons.groups},
-    {'title': 'Time Management Hacks', 'icon': Icons.access_time},
-  ];
+class _HomeScreenState extends State<HomeScreen> {
+  bool isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
+  String searchQuery = '';
+
+  final Map<String, List<String>> allCourses = {
+    "Personal Development": [
+      "Discovering Your Purpose",
+      "Building Self-Confidence",
+      "Developing a Growth Mindset",
+      "Emotional Intelligence",
+      "Building Resilience",
+    ],
+    "Leadership & Influence": [
+      "Leadership Skills for Youth",
+      "Public Speaking & Presentation Skills",
+      "Conflict Resolution & Negotiation",
+      "Ethical Leadership & Integrity",
+    ],
+    "Entrepreneurship & Career": [
+      "Entrepreneurship Fundamentals",
+      "Business Planning & Strategy",
+      "Marketing Yourself & Your Business",
+      "Funding & Investment Basics",
+    ],
+  };
+
+  List<MapEntry<String, List<String>>> getFilteredCategories() {
+    if (searchQuery.isEmpty) return allCourses.entries.toList();
+
+    return allCourses.entries
+        .map((entry) {
+          final filtered = entry.value
+              .where((c) =>
+                  c.toLowerCase().contains(searchQuery.toLowerCase()))
+              .toList();
+          return MapEntry(entry.key, filtered);
+        })
+        .where((entry) => entry.value.isNotEmpty)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final filteredCategories = getFilteredCategories();
+
     return Scaffold(
       backgroundColor: kLightGrayBg,
       appBar: AppBar(
-        backgroundColor: kAppBarBg,
-        elevation: 0,
-        title: const Text(
-          'YOUTH K.E.Y',
-          style: TextStyle(
-              color: kDeepBlue, fontWeight: FontWeight.bold, fontSize: 20),
-        ),
+        backgroundColor: kNavy,
+        title: !isSearching
+            ? const Text(
+                'YOUTH K.E.Y SERIES',
+                style: TextStyle(color: kWhite, fontWeight: FontWeight.bold),
+              )
+            : TextField(
+                controller: _searchController,
+                autofocus: true,
+                style: const TextStyle(color: kWhite),
+                decoration: const InputDecoration(
+                  hintText: "Search courses...",
+                  hintStyle: TextStyle(color: Colors.white70),
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) => setState(() => searchQuery = value),
+              ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: kDeepBlue),
-            onPressed: () {},
-          ),
+            icon: Icon(
+              isSearching ? Icons.close : Icons.search,
+              color: kWhite,
+            ),
+            onPressed: () {
+              setState(() {
+                if (isSearching) _searchController.clear();
+                searchQuery = '';
+                isSearching = !isSearching;
+              });
+            },
+          )
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          children: filteredCategories
+              .map((entry) => _buildCategorySection(entry.key, entry.value))
+              .toList(),
+        ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, 0),
+    );
+  }
+
+  Widget _buildCategorySection(String category, List<String> courses) {
+    final preview = courses.take(3).toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: 10),
-            const Text(
-              'Discover Your Path',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-                color: kDeepBlue,
+            Text(category,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            TextButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ViewAllScreen(category: category, courses: courses),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            _buildSearchBar(),
-            const SizedBox(height: 30),
-            _buildSectionHeader('Popular Categories'),
-            const SizedBox(height: 15),
-            _buildCategoryGrid(),
-            const SizedBox(height: 30),
-            _buildSectionHeader('New and Trending Lessons'),
-            const SizedBox(height: 15),
-            _buildLessonGrid(),
-            const SizedBox(height: 80),
+              child: const Text(
+                "View All",
+                style: TextStyle(color: kGold, fontWeight: FontWeight.bold),
+              ),
+            )
           ],
         ),
-      ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  // --- Search Bar ---
-  Widget _buildSearchBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: kAppBarBg,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blueGrey.shade100),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: const TextField(
-        decoration: InputDecoration(
-          hintText: 'Search courses or topics',
-          border: InputBorder.none,
-          prefixIcon: Icon(Icons.search, color: kDeepBlue),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 220,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: preview.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (context, index) =>
+                _buildCourseCard(preview[index]),
+          ),
         ),
-      ),
+        const SizedBox(height: 30),
+      ],
     );
   }
 
-  // --- Section Header ---
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-          fontSize: 20, fontWeight: FontWeight.bold, color: kDeepBlue),
-    );
-  }
-
-  // --- Categories ---
-  Widget _buildCategoryGrid() {
-    return Wrap(
-      spacing: 12,
-      runSpacing: 12,
-      children: popularCategories
-          .map((category) => _buildCategoryChip(category['title'], category['icon']))
-          .toList(),
-    );
-  }
-
-  Widget _buildCategoryChip(String title, IconData icon) {
+  Widget _buildCourseCard(String title) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      width: 180,
       decoration: BoxDecoration(
         color: kWhite,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 3,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 25,
-            height: 25,
-            decoration: const BoxDecoration(
-              color: kPrimaryGold,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: kWhite, size: 20),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            title,
-            style: const TextStyle(color: kTextDark, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // --- Lessons Grid ---
-  Widget _buildLessonGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: trendingLessons.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
-        childAspectRatio: 0.9,
-      ),
-      itemBuilder: (context, index) {
-        final lesson = trendingLessons[index];
-        return _buildLessonCard(lesson['title'], lesson['icon']);
-      },
-    );
-  }
-
-  Widget _buildLessonCard(String title, IconData icon) {
-    return Container(
-      decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(color: kDeepBlue.withOpacity(0.1), blurRadius: 5),
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          )
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 70,
-            decoration: BoxDecoration(
-              color: kDeepBlue,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(15)),
+          // IMAGE
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Container(
+              height: 100,
+              color: kGold.withOpacity(0.15),
+              child: const Icon(Icons.school, size: 50, color: kGold),
             ),
-            alignment: Alignment.center,
-            child: Icon(icon, size: 35, color: kWhite),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: kTextDark),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14)),
+                const SizedBox(height: 6),
+                const Text("US\$59.99",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              ],
             ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
-            child: Text(
-              'Start Lesson',
-              style: TextStyle(
-                color: kPrimaryGold,
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-              ),
-            ),
-          ),
+          )
         ],
       ),
-    );
-  }
-
-  // --- Bottom Navigation ---
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      currentIndex: 0,
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: kDarkNavy,
-      selectedItemColor: kPrimaryGold,
-      unselectedItemColor: kWhite.withOpacity(0.7),
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Course'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
-      ],
     );
   }
 }

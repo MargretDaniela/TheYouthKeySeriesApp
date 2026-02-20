@@ -8,7 +8,7 @@ class CustomPaddingWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       child: Container(
-        padding: const EdgeInsets.all(12), // inner padding for the text
+        padding: const EdgeInsets.all(8), // inner padding for the text
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 164, 183, 58),         // different background color
           borderRadius: BorderRadius.circular(12), // rounded corners

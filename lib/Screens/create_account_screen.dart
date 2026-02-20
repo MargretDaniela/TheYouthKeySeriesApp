@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 const Color kPrimaryGold = Color(0xFFAC7D0C);
 const Color kDeepBlue = Color(0xFF1A1A1A);
 const Color kWhite = Color(0xFFFFFFFF);
-const Color kSecondaryBlue = Color(0xFF004C99);
+const Color kSecondaryBlue = Color(0xFF032B53);
+
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -24,12 +25,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         !_emailController.text.contains('@') ||
         _passwordController.text.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Please fill all fields correctly.'),
-          backgroundColor: Colors.red));
+        content: Text('Please fill all fields correctly.'),
+        backgroundColor: Colors.red,
+      ));
       return;
     }
 
-    Navigator.pushReplacementNamed(context, '/home');
+    // Navigate to Registration Success page
+    Navigator.pushReplacementNamed(context, '/registration-success');
   }
 
   Widget _buildTextField({
@@ -62,7 +65,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kWhite,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
@@ -70,7 +73,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           children: [
             const SizedBox(height: 50),
             Center(
-              child: Image.network(
+              child: Image.asset(
                 'images/The_app_Logo.png',
                 height: 100,
               ),
@@ -119,8 +122,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               children: [
                 const Text('Already have an account?'),
                 TextButton(
-                    onPressed: () => Navigator.pushReplacementNamed(
-                        context, '/login'),
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, '/login'),
                     child: const Text('Login',
                         style: TextStyle(color: kSecondaryBlue))),
               ],

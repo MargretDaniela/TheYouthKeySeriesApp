@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // --- Brand Colors ---
 const Color kPrimaryGold = Color(0xFFAC7D0C);
-const Color kDeepBlue = Color(0xFF1A1A1A);
+const Color kDeepBlue = Color(0xFF032B53); // Updated to your new deep blue
 const Color kSecondaryBlue = Color(0xFF004C99);
 
 class LoginScreen extends StatefulWidget {
@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       return;
     }
+
     Navigator.pushReplacementNamed(context, '/home');
   }
 
@@ -102,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 TextButton(
+                  // FIXED: now properly navigates to Forgot Password flow
                   onPressed: () =>
                       Navigator.pushNamed(context, '/forgot-password'),
                   child: const Text('Forgot Password?',
